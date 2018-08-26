@@ -1,3 +1,4 @@
+import Mirage from 'ember-cli-mirage';
 export default function() {
 
   // These comments are here to help you get started. Feel free to delete them.
@@ -74,6 +75,80 @@ this.get('/rentals', function(db, request) {
 
 
 this.get('/rentals/:id', function(db, request) {
-  return {data:rentals.find((rental)=> request.params.id === rental.id)}; 
+  return {data:rentals.find((rental)=> request.params.id === rental.id)};
 });
+
+let people = [
+{
+  type: 'people',
+  id: 1,
+  attributes:   {
+      myid: 1,
+      name: "foo",
+      age: 10,
+      wage: 100.0,
+      active: true
+    }
+}
+];
+this.get('/people', function(db, request) {
+  return {data:people};
+});
+this.get('/people/:myid', function(db , request) {
+  return {data:people.find((person)=> parseInt(request.params.myid) === person.attributes.myid)};
+});
+this.post('/people', function(db, request) {
+  var person = JSON.parse(request.requestBody).data;
+  person.id =  parseInt(people[people.length-1].id) + 1;
+  people.push(person);
+  return {data:person};
+});
+this.patch('/people/:myid', function(db, request) {
+  var person = JSON.parse(request.requestBody).data;
+  var oldPerson = people.filter((person)=> person.attributes.myid = person.attributes.myid);
+  oldPerson.attributes = person.attributes;
+  //here oldPerson has already id , so we just return person whose id is null
+  return {data:person};
+});
+this.delete('/people/:myid', function(db, request) {
+  console.log(db);
+  // var newPeople = people.filter((person)=> person.attributes.myid !== parseInt(request.params.myid));
+  // console.log(newPeople);
+  // people = newPeople;
+  people.splice(people.findIndex(p=> p.attributes.myid === parseInt(request.params.myid)), 1);
+  console.log(people);
+  return {data:people};
+  // return new Mirage.response(204,{},{});
+});
+// this.delete('/people/:myid', 'people');
+
+
+//workers
+this.get('/workers', (schema, request)=> {
+  // console.log(schema);
+  // console.log(schema.workers.all());
+  return schema.workers.all({});
+});
+this.get('/workers/:id', (schema, request)=> {
+  return schema.db.workers.find(request.params.id);
+});
+this.post('/workers', (schema, request)=> {
+  var params = JSON.parse(request.requestBody);
+  var saved = schema.workers.create(params);
+  return saved;
+});
+this.patch('/workers/:id', (schema,request)=> {
+   var params = JSON.parse(request.requestBody);
+   var worker = schema.db.workers.find(request.params.id);
+   var updated =  schema.db.workers.update(worker, params);
+   if(updated.length > 0) return updated[0];
+   else return updated;
+});
+this.del('/workers/:id', (schema, request)=> {
+  // console.log(schema);
+  var deleted = schema.db.workers.remove(request.params.id);
+  console.log(deleted);
+  return deleted; 
+});
+
 }

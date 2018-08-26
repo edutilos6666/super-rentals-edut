@@ -1,0 +1,37 @@
+<div>
+  Read all: <br/>
+  <ul>
+    {{#each model as |person|}}
+    <li>{{person.name}}</li>
+    {{/each}}
+  </ul>
+</div>
+<br/>
+
+<div>
+  {{input value=r_myid placeholder="person myid"}}
+  <button {{action 'readPerson'}}>Read Person</button>
+</div>
+
+<div>
+  {{input value=myid placeholder="new person myid"}} <br/>
+  {{input value=name placeholder="new person name"}} <br/>
+  {{input value=age placeholder="new person age"}} <br/>
+  {{input value=wage placeholder="new person wage"}} <br/>
+  {{input value=active placeholder="new person active"}} <br/>
+  <button {{action 'createPerson'}}>Create Person</button>
+</div>
+
+<div>
+  {{input value=u_myid placeholder="old person myid"}} <br/>
+  {{input value=u_name placeholder="updated person name"}} <br/>
+  {{input value=u_age placeholder="updated person age"}} <br/>
+  {{input value=u_wage placeholder="updated person wage"}} <br/>
+  {{input value=u_active placeholder="updated person active"}} <br/>
+  <button {{action 'updatePerson'}}>Update Person</button>
+</div>
+
+<div>
+  {{input value=d_myid placeholder="myid of person to delete"}} <br/>
+  <button {{action 'deletePerson'}}>Delete Person</button>
+</div>

@@ -1,0 +1,34 @@
+<div>
+  Read all: <br/>
+  <table>
+    <tr>
+      <th>Summary</th>
+      <th>Update</th>
+      <th>Delete</th>
+      <th>Details</th>
+    </tr>
+    {{#each model as |worker|}}
+    <tr>
+      <td>{{worker.name}}</td>
+      <td>
+        {{#link-to 'workers.update' worker.id}}Update{{/link-to}}
+      </td>
+      <td>
+        {{#link-to 'workers.delete' worker.id}}Delete{{/link-to}}
+      </td>
+      <td>
+        {{#link-to 'workers.details' worker.id}}Details{{/link-to}}
+      </td>
+    </tr>
+    {{/each}}
+  </table>
+</div>
+<br/>
+
+
+{{#link-to 'workers.create'}}Create new Worker{{/link-to}} <br/>
+
+
+
+
+{{outlet}}
