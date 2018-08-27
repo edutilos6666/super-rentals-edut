@@ -1,0 +1,55 @@
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Wage</th>
+    <th>Active</th>
+  </tr>
+{{#each model as |student|}}
+{{prof-details student=student}}
+{{/each}}
+</table>
+
+<br/>
+{{#each model as |student|}}
+{{student-details student=student}}
+{{/each}}
+
+
+<br/><br/><br/>
+{{#each model as |student|}}
+{{#if model}}
+{{component 'prof-details' student=student}}
+{{else}}
+{{component 'student-details' student=student}}
+{{/if}}
+{{/each}}
+
+
+
+<br/><br/><br/>
+{{#each model as |student|}}
+{{aprof-details student.id student.name student.age student.wage student.active}}
+{{/each}}
+
+
+
+<br/><br/><br/>
+{{#each model as |student|}}
+{{#bprof-details}}
+<div>
+  ID: {{student.id}} <br/>
+  NAME: {{student.name}} <br/>
+  AGE: {{student.age}} <br/>
+  WAGE: {{student.wage}} <br/>
+  ACTIVE: {{student.active}} <br/>
+</div>
+{{/bprof-details}}
+{{/each}}
+
+
+<br/><br/><br/>
+{{#cart-contents}}
+<b>hello cart-contents</b>
+{{/cart-contents}}

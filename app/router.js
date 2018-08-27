@@ -20,6 +20,8 @@ Router.map(function() {
     this.route('delete', {path: '/:delete_id'});
     this.route('details', {path: '/:details_id'});
   });
+
+  this.route('students'); 
 });
 
 export default Router;
